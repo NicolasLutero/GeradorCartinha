@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Pedido</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/criar_pedido.css') }}">
+</head>
+<body>
+
+<main class="container">
+    <h1>Criar Pedido</h1>
+
+    <form id="pedidoForm" enctype="multipart/form-data">
+
+        <label>
+            Nome
+            <input type="text" id="nome" required>
+        </label>
+
+        <label>
+            Email
+            <input type="email" id="email" required>
+        </label>
+
+        <label>
+            Telefone
+            <input type="tel" id="telefone" required>
+        </label>
+
+        <fieldset class="servicos">
+            <legend>Tipo de Obra</legend>
+
+            <label>
+                <input type="radio" name="tipo_obra" value="execucao" required>
+                Execução
+            </label>
+
+            <label>
+                <input type="radio" name="tipo_obra" value="reforma">
+                Reforma
+            </label>
+
+            <label>
+                <input type="radio" name="tipo_obra" value="outro">
+                Outro
+            </label>
+
+            <input
+                type="text"
+                id="tipoOutroTexto"
+                placeholder="Descreva o tipo de obra"
+                disabled
+            >
+        </fieldset>
+
+        <label>
+            Endereço
+            <input type="text" id="endereco" required>
+        </label>
+
+        <label>
+            Metragem (m²)
+            <input
+                type="number"
+                id="metragem"
+                step="0.01"
+                min="0.01"
+                required
+            >
+        </label>
+
+        <label>
+            Fotos da Obra
+            <input type="file" id="fotos" accept="image/*" multiple>
+        </label>
+
+        <label>
+            Arquivos do Projeto
+            <input type="file" id="arquivos" multiple>
+        </label>
+
+        <button type="submit">Enviar Pedido</button>
+    </form>
+
+    <p id="mensagem">Aguardando envio...</p>
+</main>
+
+<script src="{{ url_for('static', filename='js/criar_pedido.js') }}"></script>
+</body>
+</html>

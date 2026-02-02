@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Listar Pedidos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/criar_pedido.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/listar_pedidos.css') }}">
+</head>
+<body>
+
+    <main class="container">
+        <h1>Pedidos Registrados</h1>
+
+        <div id="listaPedidos">
+            <p>Carregando pedidos...</p>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/listar_pedidos.js') }}"></script>
+</body>
+</html>
