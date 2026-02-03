@@ -1,8 +1,9 @@
 from flask import Flask
 
 from routes.SiteRoutes import site_bp
-from routes.PedidoRoutes import pedido_bp
-
+from routes.LoginCadastroRoutes import login_cadastro_bp
+from routes.UsuarioRoutes import usuario_bp
+blueprints = [site_bp, login_cadastro_bp, usuario_bp]
 
 class Server(Flask):
     def __init__(self, import_name: str):
@@ -16,10 +17,11 @@ class Server(Flask):
 
     def _registrar_rotas(self) -> None:
         # BluePrints
-        self.register_blueprint(site_bp)
-        self.register_blueprint(pedido_bp)
+        for bp in blueprints:
+            self.register_blueprint(bp)
 
 
 if __name__ == "__main__":
     app = Server(__name__)
+    app.secret_key = "HDUTH72958HFUSJ96734HUDYT"
     app.run(host="0.0.0.0", port=5050, debug=True)

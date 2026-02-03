@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+<body>
+
+<main class="container">
+
+    <div class="card" id="reforjar" data-rota="/reforjar">
+        <span>Reforjar Carta</span>
+    </div>
+
+    <div class="card" id="cartas_diarias" data-rota="/cartas_diarias">
+        <span>Cartas Diárias</span>
+    </div>
+
+    <div class="card" id="fundir" data-rota="/fundicao">
+        <span>Fundir Cartas</span>
+    </div>
+
+</main>
+
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+</body>
+</html>

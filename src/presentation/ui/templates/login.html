@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    </head>
+    <body>
+        <main class="container">
+        <h1>Login</h1>
+
+        <form id="loginForm">
+            <label>
+                Nome
+                <input type="text" id="nome" required>
+            </label>
+
+            <label>
+                Senha
+                <input type="password" id="senha" required>
+            </label>
+
+            <button type="submit">Entrar</button>
+        </form>
+        <a href="/cadastro">Ir para Cadastro</a>
+
+        <p id="mensagem">Aguardando envio...</p>
+        </main>
+
+        <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+    </body>
+</html>

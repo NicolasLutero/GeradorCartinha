@@ -4,8 +4,8 @@ body {
 }
 
 .container {
-    width: 400px;
-    margin: 30px auto;
+    width: 360px;
+    margin: 60px auto;
     background: #ffffff;
     padding: 25px;
     border-radius: 6px;
@@ -44,20 +44,4 @@ button:hover {
 #mensagem {
     margin-top: 15px;
     text-align: center;
-}
-
-fieldset.servicos {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 15px;
-}
-
-fieldset.servicos label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-fieldset.servicos input[type="text"] {
-    margin-top: 8px;
-    width: 90%;
 }

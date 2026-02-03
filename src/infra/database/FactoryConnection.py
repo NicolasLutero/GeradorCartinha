@@ -11,9 +11,9 @@ class FactoryConnection:
             cls._connection = psycopg2.connect(
                 host="localhost",
                 port=5432,
-                database="OTelhadistaBD",
-                user="postgres",
-                password="postgres"
+                database="GeradorCartasBD",
+                user="GenCartas",
+                password="SenhaGenCartas"
             )
 
         return cls._connection

@@ -1,0 +1,65 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #eaeaea;
+}
+
+.container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    padding: 20px;              /* margem geral da tela */
+    gap: 20px;                  /* espaço entre os cards */
+}
+
+.card {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+
+    border-radius: 16px;        /* bordas arredondadas */
+    border: 2px solid rgba(0,0,0,0.25); /* contorno mais escuro */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* leve profundidade */
+}
+
+/* Cores */
+#reforjar {
+    background-color: #2c7be5;
+    border-color: #1f5fb5;
+}
+
+#cartas_diarias {
+    background-color: #00a86b;
+    border-color: #007a4e;
+}
+
+#fundir {
+    background-color: #a83232;
+    border-color: #7a2222;
+}
+
+/* Hover */
+.card:hover {
+    filter: brightness(1.08);
+    transform: scale(1.02);
+}
+
+/* Estado bloqueado */
+.bloqueado {
+    opacity: 0.5;
+    filter: grayscale(40%);
+    cursor: not-allowed;
+    box-shadow: none;
+}
