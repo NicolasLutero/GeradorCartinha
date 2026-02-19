@@ -127,5 +127,17 @@ def refojar_carta():
 # -----------------------------------------------
 # FUNDIR CARTA
 # -----------------------------------------------
+@mecanica_bp.route("/api/usuario/fundicao", methods=["POST"])
+def fundir_carta():
+    verificar_sessao()
 
-# FUNÇÃO DE FUNDIR CARTA
+    nome = session["usuario"]["nome"]
+    dados = request.get_json() or {}
+    carta_base = dict(dados)["base_id"]
+    carta_sacrificio = dict(dados)["sacrificio_id"]
+    carta_fundidao = inventario_user_case.fundir_cartas(nome, carta_base, carta_sacrificio)
+
+    return jsonify({
+        "sucesso": True,
+        "carta": carta_fundidao
+    }), 200

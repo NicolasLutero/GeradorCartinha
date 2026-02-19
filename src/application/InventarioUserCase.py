@@ -94,3 +94,27 @@ class InventarioUserCase:
         carta_reforjada = self.carta_service.reforjar(usuario, carta)
         self.usuario_service.marcar_acao(usuario, ["reforjar"])
         return self.carta_service.para_client(carta_reforjada)
+
+
+    # -------------------------------------------
+    # FUNDIR CARTAS
+    # -------------------------------------------
+    def fundir_cartas(self, nome_usuario, id_carta_base, id_carta_sacrificio):
+        usuario = self.usuario_service.buscar_usuario(nome_usuario)
+        if not usuario:
+            raise UsuarioNaoExisteException()
+
+        carta_base = self.carta_service.buscar_carta(id_carta_base)
+        carta_sacrificio = self.carta_service.buscar_carta(id_carta_sacrificio)
+        if carta_base is None or carta_sacrificio is None:
+            raise CartaNaoExisteException()
+
+        id_usuario = usuario.get_id()
+        dono_carta_base = carta_base.get_dono()
+        dono_carta_sacrificio = carta_sacrificio.get_dono()
+        if not (id_usuario == dono_carta_base == dono_carta_sacrificio):
+            raise CartaNaoPertenceAOUsuarioException()
+
+        carta_fundida = self.carta_service.fundir(carta_base, carta_sacrificio)
+        self.usuario_service.marcar_acao(usuario, ["fundicao"])
+        return self.carta_service.para_client(carta_fundida)

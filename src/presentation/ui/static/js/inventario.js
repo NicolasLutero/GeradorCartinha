@@ -1,7 +1,7 @@
 // ===== Verifica se deve retornar algo =====
 const retornoInventario = localStorage.getItem("retornoInventario");
 
-// Pegando elementos do cocument
+// ===== Elementos =====
 const cartasContainer = document.getElementById("cartas");
 const filtroToggle = document.getElementById("filtroToggle");
 const filtroIcon = document.getElementById("filtroIcon");
@@ -15,6 +15,7 @@ let fundos = [];
 let personagens = [];
 let bordas = [];
 
+// Cache agora armazena Promise<string>
 const imageCache = new Map();
 
 // ===== Toggle filtro =====
@@ -23,15 +24,46 @@ filtroToggle.addEventListener("click", () => {
     filtroIcon.innerText = filtroBox.classList.contains("aberto") ? "▲" : "▼";
 });
 
+// ===== Buscar imagem com cache de Promise =====
+function buscarImagem(c) {
+    const key = `${c.personagem}|${c.fundo}|${c.borda}`;
+
+    if (!imageCache.has(key)) {
+        const promise = fetch("/img", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                fundo: c.fundo,
+                personagem: c.personagem,
+                borda: c.borda
+            })
+        })
+        .then(r => r.json())
+        .then(imgRes => {
+            if (!imgRes.sucesso) {
+                throw new Error("Erro ao buscar imagem");
+            }
+            return imgRes.imagem;
+        })
+        .catch(err => {
+            imageCache.delete(key); // evita cache quebrado
+            throw err;
+        });
+
+        imageCache.set(key, promise);
+    }
+
+    return imageCache.get(key);
+}
+
 // ===== Carregar tipos =====
 fetch("/api/inventario/tipos")
 .then(r => r.json())
 .then(res => {
     if (!res.sucesso) return;
 
-    // ===== Cenários (fundo) =====
     res.tipos.fundos.forEach(fundo => {
-        fundos.push(fundo)
+        fundos.push(fundo);
 
         const label = document.createElement("label");
         label.innerHTML = `
@@ -42,17 +74,17 @@ fetch("/api/inventario/tipos")
         const checkbox = label.querySelector("input");
         checkbox.checked = true;
         checkbox.addEventListener("change", () => {
-            if (checkbox.checked) fundos.push(fundo);
-            else fundos = fundos.filter(f => f !== fundo);
+            fundos = checkbox.checked
+                ? [...new Set([...fundos, fundo])]
+                : fundos.filter(f => f !== fundo);
             carregarCartas();
         });
 
         filtroFundos.appendChild(label);
     });
 
-    // ===== Personagens =====
     res.tipos.personagens.forEach(personagem => {
-        personagens.push(personagem)
+        personagens.push(personagem);
 
         const label = document.createElement("label");
         label.innerHTML = `
@@ -63,17 +95,17 @@ fetch("/api/inventario/tipos")
         const checkbox = label.querySelector("input");
         checkbox.checked = true;
         checkbox.addEventListener("change", () => {
-            if (checkbox.checked) personagens.push(personagem);
-            else personagens = personagens.filter(p => p !== personagem);
+            personagens = checkbox.checked
+                ? [...new Set([...personagens, personagem])]
+                : personagens.filter(p => p !== personagem);
             carregarCartas();
         });
 
         filtroPersonagens.appendChild(label);
     });
 
-    // ===== Raridades (borda) =====
     res.tipos.bordas.forEach(borda => {
-        bordas.push(borda)
+        bordas.push(borda);
 
         const label = document.createElement("label");
         label.innerHTML = `
@@ -84,8 +116,9 @@ fetch("/api/inventario/tipos")
         const checkbox = label.querySelector("input");
         checkbox.checked = true;
         checkbox.addEventListener("change", () => {
-            if (checkbox.checked) bordas.push(borda);
-            else bordas = bordas.filter(b => b !== borda);
+            bordas = checkbox.checked
+                ? [...new Set([...bordas, borda])]
+                : bordas.filter(b => b !== borda);
             carregarCartas();
         });
 
@@ -95,26 +128,19 @@ fetch("/api/inventario/tipos")
     carregarCartas();
 });
 
-carregarCartas();
-
 // ===== Buscar cartas =====
-function carregarCartas(){
+function carregarCartas() {
     cartasContainer.innerHTML = "";
 
     fetch("/api/inventario", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            fundos: fundos,
-            personagens: personagens,
-            bordas: bordas
-        })
+        body: JSON.stringify({ fundos, personagens, bordas })
     })
     .then(r => r.json())
     .then(res => {
         if (!res.sucesso) return;
 
-        // ===== Mapa de cores por raridade =====
         const raridadeStyle = {
             "Comum": {
                 carta: "linear-gradient(180deg, #f2f2f2, #d9d9d9)",
@@ -139,22 +165,19 @@ function carregarCartas(){
             "Perfeito": {
                 carta: "linear-gradient(180deg, #fff6d6, #f0d98c)",
                 stats: "rgba(212,175,55,0.25)",
-                borda: "#d4af37" // dourado
+                borda: "#d4af37"
             }
         };
 
         res.cartas.forEach(c => {
-            // Gerando Div da Carta
             const div = document.createElement("div");
             div.classList.add("carta");
 
             div.innerHTML = `
                 <h3 class="titulo">${c.personagem} da ${c.fundo} ${c.borda}</h3>
-
                 <div class="imagem-container">
                     <img alt="${c.personagem}" class="imagem-carta">
                 </div>
-
                 <div class="stats">
                     <div><span>Força</span><span>${c.stats.for[0]} (${c.stats.for[1]}%)</span></div>
                     <div><span>Destreza</span><span>${c.stats.des[0]} (${c.stats.des[1]}%)</span></div>
@@ -166,7 +189,6 @@ function carregarCartas(){
             `;
 
             const estilo = raridadeStyle[c.borda];
-
             if (estilo) {
                 div.style.background = estilo.carta;
                 div.style.borderColor = estilo.borda;
@@ -178,51 +200,31 @@ function carregarCartas(){
 
             cartasContainer.appendChild(div);
 
-            // Pegando imagem da carta
-            const key = `${c.personagem}|${c.fundo}|${c.borda}`;
-            if (imageCache.has(key)) {
-                // usa do cache
-                div.querySelector(".imagem-carta").src = `data:image/png;base64,${imageCache.get(key)}`;
-            } else {
-                // busca no servidor
-                fetch("/img", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        fundo: c.fundo,
-                        personagem: c.personagem,
-                        borda: c.borda
-                    })
-                })
-                .then(r => r.json())
-                .then(imgRes => {
-                    if (imgRes.sucesso) {
-                        imageCache.set(key, imgRes.imagem);  // salva no cache
-                        div.querySelector(".imagem-carta").src = `data:image/png;base64,${imgRes.imagem}`;
-                    }
+            const imgElement = div.querySelector(".imagem-carta");
+
+            buscarImagem(c)
+                .then(base64 => {
+                    imgElement.src = `data:image/png;base64,${base64}`;
                 })
                 .catch(err => {
-                    console.error("Erro ao buscar imagem:", err);
+                    console.error("Erro ao carregar imagem:", err);
                 });
-            }
 
-            // Evento de click da carta
             if (retornoInventario) {
-                if (retornoInventario === "selecionandoCartaReforja") {
-                    div.addEventListener("click", () => {
-                        localStorage.removeItem("retornoInventario")
+                div.addEventListener("click", () => {
+                    localStorage.removeItem("retornoInventario");
+
+                    if (retornoInventario === "selecionandoCartaReforja") {
                         localStorage.setItem("cartaForja", c.id);
-                        window.location.href='/reforja';
-                    });
-                }
-
-                else if (retornoInventario === "selecionandoCartaFundicao1") {
-                    // CASO B
-                }
-
-                else if (retornoInventario === "selecionandoCartaFundicao2") {
-                    // CASO C
-                }
+                        window.location.href = "/reforja";
+                    } else if (retornoInventario === "selecionandoBaseFundicao") {
+                        localStorage.setItem("cartaBaseFundicao", c.id);
+                        window.location.href = "/fundicao";
+                    } else if (retornoInventario === "selecionandoSacrificioFundicao") {
+                        localStorage.setItem("cartaSacrificioFundicao", c.id);
+                        window.location.href = "/fundicao";
+                    }
+                });
             }
         });
     });

@@ -1,3 +1,4 @@
+// reforja.js
 // Carregando Carta da Forja
 const cartaForja = localStorage.getItem("cartaForja");
 
@@ -48,7 +49,7 @@ function btn_reforja_click(){
             }
         };
 
-        fetch("/api/usuario/reforja/", {
+        fetch("/api/usuario/reforja", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

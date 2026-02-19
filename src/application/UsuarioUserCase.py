@@ -36,6 +36,7 @@ class UsuarioUserCase:
         if not self.usuario_service.usuario_existe(nome):
             usuario = self.usuario_service.criar_usuario(nome, senha)
             self.usuario_service.salvar_usuario(usuario)
+            self.carta_service.gerar_n_cartas(45, usuario)
         else:
             raise UsuarioJaExisteException()
 

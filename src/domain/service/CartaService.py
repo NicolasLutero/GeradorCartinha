@@ -30,6 +30,7 @@ class CartaService:
         cartas = [self.carta_aleatoria(usuario.get_id(), usuario.get_fator_n()) for _ in range(n)]
         for carta in cartas:
             self.carta_dao.criar(carta)
+        return cartas
 
     def carta_aleatoria(self, dono, fator_n) -> CartaEntity:
         n = (random() + fator_n) % 1
@@ -110,43 +111,23 @@ class CartaService:
         return card1
 
 
-    """
     # -----------------------------
     # FUNDIR
     # -----------------------------
     def fundir(self, card1: CartaEntity, card2: CartaEntity) -> CartaEntity:
-        stats1 = self.estatus_base(card1.get_personagem())
-        stats2 = self.estatus_base(card2.get_personagem())
+        for atr in ["for", "des", "con", "int", "sab", "car"]:
+            card1.set_atributo(atr, [card1.get_stats()[atr][0],
+                                     max(card1.get_stats()[atr][1], card2.get_stats()[atr][1])])
 
-        stats3 = {}
-        atributos = ["For", "Des", "Con", "Int", "Sab", "Car"]
+        if card1.get_bonus() < card2.get_bonus():
+            bonus = card1.get_bonus()+1
+            card1.set_bonus(bonus)
+            card1.set_borda(self.borda[len(self.borda)-bonus][1])
 
-        for n_atr, atr in enumerate(atributos):
-            atr_c1 = card1.get_atributo(atr) - (
-                    stats1[n_atr] + 2 - CartaService.borda.index(card1.get_borda())
-            )
-            atr_c2 = card2.get_atributo(atr) - (
-                    stats2[n_atr] + 2 - CartaService.borda.index(card2.get_borda())
-            )
-            stats3[atr] = max(atr_c1, atr_c2) + stats1[n_atr] - 1
+        self.carta_dao.atualizar(card1)
+        self.carta_dao.deletar(card2.get_id())
+        return card1
 
-        raridade = card1.get_borda()
-        if CartaService.borda.index(card2.get_borda()) < CartaService.borda.index(card1.get_borda()):
-            index = CartaService.borda.index(card1.get_borda()) - 1
-            raridade = CartaService.borda[index]
-            for c1 in stats3:
-                stats3[c1] = stats3[c1] + 1
-
-        nome = f"{card1.get_personagem()} da {card1.get_fundo()} {raridade}"
-
-        return CartaEntity(
-            nome,
-            card1.get_personagem(),
-            card1.get_fundo(),
-            raridade,
-            stats3
-        )
-    """
 
     # -----------------------------
     # CARTA APRESENTAVEL AO CLIENT

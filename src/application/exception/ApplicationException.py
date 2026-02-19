@@ -5,7 +5,7 @@ class UsuarioJaExisteException(Exception):
 
 class LoginRecusadoException(Exception):
     def __init__(self):
-        super().__init__("Login Recusado.")
+        super().__init__("Login Recusado, Usuário ou Senha Errado.")
 
 class UsuarioNaoExisteException(Exception):
     def __init__(self):
