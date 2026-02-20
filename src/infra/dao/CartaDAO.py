@@ -311,12 +311,29 @@ class CartaDAO:
     # LISTA OS TIPOS DE FUNDO, PERSONAGEM E BORDA DE UM USUÁRIO
     # -------------------------------------------
     def listar_tipos(self, id_dono, campo) -> list[str]:
-        sql = f"""
-            SELECT DISTINCT {campo}
-            FROM carta
-            WHERE dono = %s
-            ORDER BY {campo};
-        """
+        if campo == "borda":
+            sql = f"""
+                SELECT DISTINCT borda,
+                    CASE borda
+                        WHEN 'Perfeito' THEN 1
+                        WHEN 'Top'      THEN 2
+                        WHEN 'Ótimo'    THEN 3
+                        WHEN 'Bom'      THEN 4
+                        WHEN 'Comum'    THEN 5
+                        ELSE 6
+                    END AS ordem
+                FROM carta
+                WHERE dono = 1
+                ORDER BY ordem;
+            """
+        else:
+            sql = f"""
+                SELECT DISTINCT {campo}
+                FROM carta
+                WHERE dono = %s
+                ORDER BY {campo};
+            """
+
         with self._conn.cursor() as cur:
             cur.execute(sql, (id_dono,))
             rows = cur.fetchall()
