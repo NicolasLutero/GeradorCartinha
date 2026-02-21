@@ -7,7 +7,7 @@ from src.domain.exception.DomainException import *
 class HttpException(Exception):
     def __init__(self, mensagem: str, status_code: int):
         self.status_code = status_code
-        super().__init__(f"{status_code} - {mensagem}")
+        super().__init__(mensagem)
 
 
 class HttpExceptionMapper:

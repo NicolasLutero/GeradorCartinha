@@ -1,3 +1,5 @@
+/* home.css Revisar */
+
 * {
     margin: 0;
     padding: 0;
@@ -13,8 +15,8 @@ body {
     display: flex;
     width: 100vw;
     height: 100vh;
-    padding: 20px;              /* margem geral da tela */
-    gap: 20px;                  /* espaço entre os cards */
+    padding: 20px;
+    gap: 20px;
 }
 
 .card {
@@ -29,12 +31,26 @@ body {
     color: white;
     text-align: center;
 
-    border-radius: 16px;        /* bordas arredondadas */
-    border: 2px solid rgba(0,0,0,0.25); /* contorno mais escuro */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* leve profundidade */
+    border-radius: 16px;
+    border: 2px solid rgba(0,0,0,0.25);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-/* Cores */
+.card:hover {
+    filter: brightness(1.08);
+    transform: scale(1.02);
+}
+
+#jogar {
+    background-color: #f4c430;
+    border-color: #c79a1b;
+}
+
+#inventario {
+    background-color: #6f42c1;
+    border-color: #4e2c91;
+}
+
 #reforjar {
     background-color: #2c7be5;
     border-color: #1f5fb5;
@@ -50,18 +66,6 @@ body {
     border-color: #7a2222;
 }
 
-#inventario {
-    background-color: #6f42c1;   /* roxo */
-    border-color: #4e2c91;
-}
-
-/* Hover */
-.card:hover {
-    filter: brightness(1.08);
-    transform: scale(1.02);
-}
-
-/* Estado bloqueado */
 .bloqueado {
     opacity: 0.5;
     filter: grayscale(40%);

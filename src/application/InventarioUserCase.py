@@ -91,8 +91,10 @@ class InventarioUserCase:
         if id_usuario != dono_carta:
             raise CartaNaoPertenceAOUsuarioException()
 
+        self.usuario_service.verifica_status(usuario, ["reforjar"])
         carta_reforjada = self.carta_service.reforjar(usuario, carta)
         self.usuario_service.marcar_acao(usuario, ["reforjar"])
+
         return self.carta_service.para_client(carta_reforjada)
 
 
@@ -115,6 +117,8 @@ class InventarioUserCase:
         if not (id_usuario == dono_carta_base == dono_carta_sacrificio):
             raise CartaNaoPertenceAOUsuarioException()
 
+        self.usuario_service.verifica_status(usuario, ["fundir"])
         carta_fundida = self.carta_service.fundir(carta_base, carta_sacrificio)
         self.usuario_service.marcar_acao(usuario, ["fundicao"])
+
         return self.carta_service.para_client(carta_fundida)

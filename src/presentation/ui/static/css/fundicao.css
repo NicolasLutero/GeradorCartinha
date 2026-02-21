@@ -1,4 +1,6 @@
-/* reforja.css */
+/* fundicao.css */
+@import url("./carta.css");
+
 * {
     margin: 0;
     padding: 0;
@@ -15,11 +17,6 @@ body {
     background: radial-gradient(circle at top, #f0f0f0, #dcdcdc);
 }
 
-
-/* =========================
-   LAYOUT BASE
-========================= */
-
 .container {
     min-height: 100vh;
     padding: 18px 26px;
@@ -27,11 +24,6 @@ body {
     flex-direction: column;
     gap: 12px;
 }
-
-
-/* =========================
-   FILTRO
-========================= */
 
 .filtro {
     background: #f3f3f3;
@@ -100,11 +92,6 @@ body {
     cursor: pointer;
 }
 
-
-/* =========================
-   GRID DE CARTAS (INVENTÁRIO)
-========================= */
-
 .cartas-wrapper {
     flex: 1;
     display: flex;
@@ -116,110 +103,6 @@ body {
     gap: 18px;
     width: 100%;
 }
-
-
-/* =========================
-   CARTA PADRÃO (INVENTÁRIO)
-========================= */
-
-.carta {
-    background: linear-gradient(180deg, #ffffff, #f3f3f3);
-    border-radius: 16px;
-    border: 2px solid rgba(0,0,0,0.18);
-    box-shadow: 0 6px 14px rgba(0,0,0,0.18);
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
-
-    transition:
-        box-shadow 0.25s ease,
-        border-color 0.25s ease,
-        filter 0.25s ease,
-        background 0.25s ease;
-    position: relative;
-}
-
-/* Efeito de luz dinâmica */
-.carta::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-        circle at var(--x, 50%) var(--y, 50%),
-        rgba(255,255,255,0.25),
-        transparent 45%
-    );
-    opacity: 0;
-    transition: opacity 0.25s ease;
-    pointer-events: none;
-}
-
-.carta:hover {
-    box-shadow:
-        0 10px 26px rgba(0,0,0,0.28),
-        inset 0 0 12px rgba(255,255,255,0.35);
-    border-color: rgba(44, 123, 229, 0.6);
-    filter: brightness(1.02);
-    background: linear-gradient(180deg, #ffffff, #eeeeee);
-}
-
-.carta:hover::after {
-    opacity: 1;
-}
-
-
-/* =========================
-   ELEMENTOS INTERNOS
-========================= */
-
-.titulo {
-    text-align: center;
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 6px;
-    color: #222;
-}
-
-.imagem-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    margin: 6px 0;
-}
-
-.imagem-carta {
-    max-height: 100%;
-    max-width: 100%;
-    object-fit: contain;
-    border-radius: 30px;
-    border: 2px solid rgba(0,0,0,0.75);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-.stats {
-    font-size: 12px;
-    background: rgba(0,0,0,0.04);
-    border-radius: 10px;
-    padding: 6px 8px;
-}
-
-.stats div {
-    display: flex;
-    justify-content: space-between;
-    padding: 2px 0;
-}
-
-.stats span:first-child {
-    font-weight: 600;
-}
-
-
-/* =========================
-   LAYOUT REFORJA
-========================= */
 
 .container-reforja {
     min-height: 100vh;
@@ -243,42 +126,10 @@ body {
     justify-content: center;
 }
 
-
-/* =========================
-   CARTAS DA REFORJA (ESTILO LIMPO)
-========================= */
-
-.painel-esquerdo .carta {
+.painel-esquerdo {
     width: 240px;
     height: 460px;
 }
-
-/* Carta clicável */
-.carta-ativa {
-    cursor: pointer;
-}
-
-.carta-ativa:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.18);
-}
-
-/* Carta vazia */
-.carta-vazia {
-    opacity: 0.85;
-}
-
-.placeholder {
-    font-size: 60px;
-    font-weight: bold;
-    color: #bbb;
-    text-align: center;
-}
-
-
-/* =========================
-   BOTÃO REFORJAR
-========================= */
 
 .btn-reforjar {
     padding: 16px 32px;
@@ -296,16 +147,4 @@ body {
 .btn-reforjar:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 24px rgba(0,0,0,0.35);
-}
-
-/* =========================
-   Carta ou Botão Bloqueado
-========================= */
-
-/* Estado bloqueado */
-.bloqueado {
-    opacity: 0.5;
-    filter: grayscale(40%);
-    cursor: not-allowed;
-    box-shadow: none;
 }

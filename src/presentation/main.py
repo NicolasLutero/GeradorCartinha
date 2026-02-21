@@ -1,4 +1,5 @@
 # main.py
+import traceback
 from flask import Flask, jsonify, send_from_directory
 from pathlib import Path
 import os
@@ -46,7 +47,7 @@ class Server(Flask):
                     "mensagem": str(http_error)
                 }), http_error.status_code
 
-            print(e)
+            traceback.print_exc()
             return jsonify({
                 "sucesso": False,
                 "mensagem": "Erro interno do servidor"

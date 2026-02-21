@@ -1,4 +1,7 @@
-document.getElementById("cadastroForm").addEventListener("submit", function(event) {
+// cadastro.js Revisar
+
+const cadastroForm = document.getElementById("cadastroForm");
+cadastroForm.addEventListener("submit", function(event) {
     event.preventDefault();
 
     const nome = document.getElementById("nome").value.trim();
@@ -31,7 +34,6 @@ document.getElementById("cadastroForm").addEventListener("submit", function(even
     .then(response => response.json())
     .then(data => {
         if (data.sucesso) {
-            // REDIRECIONA
             window.location.href = "/home";
         } else {
             msg.innerText = data.mensagem || "Erro ao cadastrar usuário.";

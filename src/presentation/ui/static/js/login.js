@@ -1,4 +1,7 @@
-document.getElementById("loginForm").addEventListener("submit", function(event) {
+// login.js Revisar
+
+loginForm = document.getElementById("loginForm");
+loginForm.addEventListener("submit", function(event) {
     event.preventDefault();
 
     const nome = document.getElementById("nome").value.trim();

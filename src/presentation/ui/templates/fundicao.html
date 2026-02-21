@@ -1,51 +1,45 @@
+<!-- fundicao.html Revisar -->
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Fundição</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/fundicao.css') }}">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Fundição</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/fundicao.css') }}">
+    </head>
+    <body>
+        <main class="container-reforja">
+            <section class="painel-esquerdo">
+                <div class="carta carta-ativa" id="carta-base">
+                    <h3 class="titulo">Carta Base</h3>
+                    <div class="imagem-container">
+                        <div class="placeholder">+</div>
+                    </div>
+                    <div class="stats"></div>
+                </div>
 
-<main class="container-reforja">
+                <div class="carta carta-ativa" id="carta-sacrificio">
+                    <h3 class="titulo">Sacrifício</h3>
+                    <div class="imagem-container">
+                        <div class="placeholder">+</div>
+                    </div>
+                    <div class="stats"></div>
+                </div>
 
-    <section class="painel-esquerdo">
+                <div class="carta carta-vazia" id="carta-resultado">
+                    <h3 class="titulo">Resultado</h3>
+                    <div class="imagem-container">
+                        <div class="placeholder">?</div>
+                    </div>
+                    <div class="stats"></div>
+                </div>
 
-        <!-- Carta Base -->
-        <div class="carta carta-ativa" id="carta-base">
-            <h3 class="titulo">Carta Base</h3>
-            <div class="imagem-container">
-                <div class="placeholder">+</div>
-            </div>
-            <div class="stats"></div>
-        </div>
+            </section>
 
-        <!-- Carta Sacrifício -->
-        <div class="carta carta-ativa" id="carta-sacrificio">
-            <h3 class="titulo">Sacrifício</h3>
-            <div class="imagem-container">
-                <div class="placeholder">+</div>
-            </div>
-            <div class="stats"></div>
-        </div>
+            <section class="painel-direito">
+                <button class="btn-reforjar" id="btn-fundir">FUNDIR</button>
+            </section>
+        </main>
 
-        <!-- Resultado -->
-        <div class="carta carta-vazia" id="carta-resultado">
-            <h3 class="titulo">Resultado</h3>
-            <div class="imagem-container">
-                <div class="placeholder">?</div>
-            </div>
-            <div class="stats"></div>
-        </div>
-
-    </section>
-
-    <section class="painel-direito">
-        <button class="btn-reforjar" id="btn-fundir">FUNDIR</button>
-    </section>
-
-</main>
-
-<script src="{{ url_for('static', filename='js/fundicao.js') }}"></script>
-</body>
+        <script type="module" src="{{ url_for('static', filename='js/fundicao.js') }}"></script>
+    </body>
 </html>
