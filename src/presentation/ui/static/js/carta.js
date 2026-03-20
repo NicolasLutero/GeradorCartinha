@@ -2,28 +2,28 @@
 
 export const raridadeStyle = {
     "Comum": {
-        carta: "linear-gradient(180deg, #f2f2f2, #d9d9d9)",
-        stats: "rgba(120,120,120,0.15)",
+        carta: "linear-gradient(180deg, rgba(242, 242, 242, 0.3), rgba(217, 217, 217, 0.8))",
+        stats: "rgba(120, 120, 120, 0.5)",
         borda: "#8a8a8a"
     },
     "Bom": {
-        carta: "linear-gradient(180deg, #e6f7ee, #bfe8d5)",
-        stats: "rgba(0,168,107,0.15)",
+        carta: "linear-gradient(180deg, rgba(230, 247, 238, 0.3), rgba(191, 232, 213, 0.8))",
+        stats: "rgba(0, 168, 107, 0.15)",
         borda: "#00a86b"
     },
     "Ótimo": {
-        carta: "linear-gradient(180deg, #e6f0ff, #c2d9ff)",
-        stats: "rgba(44,123,229,0.15)",
+        carta: "linear-gradient(180deg, rgba(230, 240, 255, 0.3), rgba(194, 217, 255, 0.8))",
+        stats: "rgba(44, 123, 229, 0.15)",
         borda: "#2c7be5"
     },
     "Top": {
-        carta: "linear-gradient(180deg, #f1e6ff, #d6c2ff)",
-        stats: "rgba(120,70,200,0.18)",
+        carta: "linear-gradient(180deg, rgba(241, 230, 255, 0.3), rgba(214, 194, 255, 0.8))",
+        stats: "rgba(120, 70, 200, 0.18)",
         borda: "#7a3fd1"
     },
     "Perfeito": {
-        carta: "linear-gradient(180deg, #fff6d6, #f0d98c)",
-        stats: "rgba(212,175,55,0.25)",
+        carta: "linear-gradient(180deg, rgba(255, 246, 214, 0.3), rgba(240, 217, 140, 0.8))",
+        stats: "rgba(212, 175, 55, 0.25)",
         borda: "#d4af37"
     }
 };
@@ -87,7 +87,11 @@ export function criarCartaDiv(carta, div) {
 
         const statsDiv = div.querySelector(".stats");
         statsDiv.style.background = estilo.stats;
-        statsDiv.style.border = `1px solid ${estilo.borda}55`;
+        statsDiv.style.border = `1px solid ${estilo.borda}`;
+        statsDiv.style.color = "#000000";
+
+        const tituloDiv = div.querySelector(".titulo");
+        tituloDiv.style.color = "#000000";
     }
 
     const imgElement = div.querySelector(".imagem-carta");

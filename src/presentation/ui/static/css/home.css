@@ -11,6 +11,14 @@ body {
     background-color: #eaeaea;
 }
 
+.home {
+    background-image: url("imagens/fundo_home.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 0.5s ease-in-out;
+}
+
 .container {
     display: flex;
     width: 100vw;
@@ -31,39 +39,17 @@ body {
     color: white;
     text-align: center;
 
-    border-radius: 16px;
-    border: 2px solid rgba(0,0,0,0.25);
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+
+    border: 2px solid black;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #ddd;
 }
 
 .card:hover {
     filter: brightness(1.08);
     transform: scale(1.02);
-}
-
-#jogar {
-    background-color: #f4c430;
-    border-color: #c79a1b;
-}
-
-#inventario {
-    background-color: #6f42c1;
-    border-color: #4e2c91;
-}
-
-#reforjar {
-    background-color: #2c7be5;
-    border-color: #1f5fb5;
-}
-
-#cartas_diarias {
-    background-color: #00a86b;
-    border-color: #007a4e;
-}
-
-#fundir {
-    background-color: #a83232;
-    border-color: #7a2222;
 }
 
 .bloqueado {
@@ -82,13 +68,13 @@ body {
     padding: 16px 32px;
     font-size: 18px;
     font-weight: bold;
-    border-radius: 12px;
-    border: none;
     cursor: pointer;
-    background: linear-gradient(180deg, #f0d98c, #d4af37);
-    color: #222;
     box-shadow: 0 6px 14px rgba(0,0,0,0.25);
     transition: all 0.25s ease;
+    background: linear-gradient(180deg, rgba(240, 217, 140, 0.3), rgba(212, 175, 55, 0.8));
+    border: 2px solid rgba(240, 217, 140, 0.2);
+    border-radius: 6px;
+    color: #ddd;
 }
 
 .btn-logout:hover {

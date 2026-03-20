@@ -1,5 +1,4 @@
 // home.js Revisar
-
 fetch("/api/usuario/status-diario")
 .then(res => res.json())
 .then(res => {

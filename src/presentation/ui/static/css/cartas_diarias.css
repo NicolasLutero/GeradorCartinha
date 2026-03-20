@@ -17,6 +17,14 @@ body {
     background: radial-gradient(circle at top, #f0f0f0, #dcdcdc);
 }
 
+.cartas-diarias{
+    background-image: url("imagens/fundo_cartas_diarias.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+
 .container {
     height: 100vh;
     padding: 18px 26px 16px 26px;
@@ -55,13 +63,13 @@ body {
     padding: 10px 36px;
     font-size: 16px;
     font-weight: bold;
-    border-radius: 10px;
-    border: none;
     cursor: pointer;
-    background: linear-gradient(180deg, #2c7be5, #1f5fb5);
-    color: white;
     box-shadow: 0 6px 14px rgba(0,0,0,0.25);
     transition: 0.2s;
+    border: 2px solid #00F;
+    border-radius: 6px;
+    background: rgba(44, 119, 229, 0.4);
+    color: #ddd;
 }
 
 #btn-receber:hover {
